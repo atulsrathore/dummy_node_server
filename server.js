@@ -3,8 +3,9 @@ const hbs = require('hbs');
 const fs = require('fs');
 
 let app = express();
+const port = process.env.PORT || 3000;
 
-//use template engine
+//hbs template engine
 app.set('view engine', 'hbs');
 hbs.registerPartials(__dirname + '/views/partials');
 hbs.registerHelper('getCurrentyear',  () => {
@@ -28,8 +29,7 @@ app.use(myLogger);
 //   res.render('maintainence.hbs');
 // })
 
-//static file serve
-app.use(express.static(__dirname + '/public')); // public static directory app.use
+app.use(express.static(__dirname + '/public')); // static file serve
 
 app.get('/json', (req, res) => { // res.send text or json example
   res.send({
@@ -46,6 +46,6 @@ app.get('/about', (req, res) => {
   res.render('about.hbs');
 });
 
-app.listen(3000, () => {
-  console.log('Server is up now');
+app.listen(port, () => {
+  console.log(`Server is up on port ${port}`);
 });
